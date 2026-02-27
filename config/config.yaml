@@ -1,0 +1,112 @@
+# ──────────────────────────────────────────────────────────────
+#  Looker Studio Integration – Static Configuration
+# ──────────────────────────────────────────────────────────────
+
+bigquery:
+  project_id: "${BIGQUERY_PROJECT_ID}"
+  dataset_id: "${BIGQUERY_DATASET_ID}"
+  location: US
+  tables:
+    google_ads:       google_ads_performance
+    meta_ads:         meta_ads_performance
+    google_analytics: ga4_performance
+    linkedin_ads:     linkedin_ads_performance
+    twitter_ads:      twitter_ads_performance
+    unified:          unified_performance
+
+pipeline:
+  lookback_days: 30
+  batch_size: 1000
+  retry_attempts: 3
+  retry_delay_seconds: 5
+
+google_ads:
+  api_version: v16
+  metrics:
+    - impressions
+    - clicks
+    - cost_micros
+    - conversions
+    - conversions_value
+    - view_through_conversions
+  segments:
+    - date
+    - campaign.id
+    - campaign.name
+    - campaign.status
+    - ad_group.id
+    - ad_group.name
+    - segments.device
+    - segments.ad_network_type
+
+meta_ads:
+  api_version: v19.0
+  level: ad          # ad | adset | campaign | account
+  fields:
+    - date_start
+    - campaign_id
+    - campaign_name
+    - adset_id
+    - adset_name
+    - ad_id
+    - ad_name
+    - impressions
+    - clicks
+    - spend
+    - reach
+    - frequency
+    - actions
+    - action_values
+    - cost_per_action_type
+    - cpm
+    - cpc
+    - ctr
+
+google_analytics:
+  dimensions:
+    - date
+    - sessionSource
+    - sessionMedium
+    - sessionCampaignName
+    - deviceCategory
+    - country
+  metrics:
+    - sessions
+    - totalUsers
+    - newUsers
+    - bounceRate
+    - averageSessionDuration
+    - screenPageViews
+    - conversions
+    - totalRevenue
+    - engagementRate
+
+linkedin_ads:
+  pivot: CAMPAIGN
+  fields:
+    - dateRange
+    - impressions
+    - clicks
+    - costInLocalCurrency
+    - leads
+    - externalWebsiteConversions
+    - videoViews
+    - approximateUniqueImpressions
+
+twitter_ads:
+  granularity: DAY
+  metrics:
+    - impressions
+    - engagements
+    - clicks
+    - spend
+    - conversions
+    - video_views
+    - retweets
+    - likes
+    - replies
+
+looker_studio:
+  connector_id: community_connector
+  cache_duration_seconds: 3600
+  default_date_range_days: 30

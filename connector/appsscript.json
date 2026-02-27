@@ -1,0 +1,20 @@
+{
+  "timeZone": "America/New_York",
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "dependencies": {},
+  "dataStudio": {
+    "name": "Multi-Platform Marketing Connector",
+    "logoUrl": "https://raw.githubusercontent.com/google/material-design-icons/master/png/action/analytics/materialicons/48dp/2x/baseline_analytics_black_48dp.png",
+    "company": "Your Agency",
+    "companyUrl": "https://yourcompany.com",
+    "addonUrl": "https://yourcompany.com/looker-connector",
+    "supportUrl": "https://yourcompany.com/support",
+    "description": "Connect Google Ads, Meta Ads, GA4, LinkedIn Ads and Twitter Ads into one unified Looker Studio dashboard.",
+    "sources": [
+      "GOOGLE_ADS",
+      "ANALYTICS",
+      "FACEBOOK_ADS"
+    ]
+  }
+}
