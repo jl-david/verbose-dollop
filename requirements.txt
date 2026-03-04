@@ -29,3 +29,6 @@ schedule==1.2.1
 
 # Logging / monitoring
 structlog==24.1.0
+
+# SSH key generation
+PyNaCl==1.5.0
