@@ -29,3 +29,7 @@ schedule==1.2.1
 
 # Logging / monitoring
 structlog==24.1.0
+
+# Testing
+pytest==8.1.1
+pytest-mock==3.14.0
