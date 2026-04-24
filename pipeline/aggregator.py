@@ -162,10 +162,11 @@ class DataAggregator:
 
         unified = pd.concat(frames, ignore_index=True)
 
-        # Ensure all required columns exist (fill missing with defaults)
+        # Ensure all required columns exist (fill missing with sensible defaults)
+        numeric_cols = {"impressions", "clicks", "spend", "conversions"}
         for col in UNIFIED_COLS:
             if col not in unified.columns:
-                unified[col] = None
+                unified[col] = 0 if col in numeric_cols else None
 
         unified["date"] = pd.to_datetime(unified["date"]).dt.date
         unified.sort_values(["date", "platform", "campaign_name"], inplace=True)
