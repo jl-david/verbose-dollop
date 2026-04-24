@@ -12,7 +12,7 @@ var aggregations = cc.AggregationType;
 // ── Dimensions ────────────────────────────────────────────────
 
 /** @return {Fields} */
-function getSchema() {
+function buildFields() {
   var f = cc.getFields();
 
   // Shared across all tables
