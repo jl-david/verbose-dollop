@@ -111,9 +111,9 @@ function getSchema(request) {
   return { schema: getSchema_().build() };
 }
 
-/** Returns the Fields object matching the selected table. */
+/** Returns the Fields object built by schema.js. */
 function getSchema_() {
-  return getSchema(); // delegates to schema.js
+  return buildFields(); // delegates to schema.js
 }
 
 // ── Data ──────────────────────────────────────────────────────────────────────
@@ -128,8 +128,8 @@ function getData(request) {
   var endDate   = request.dateRange.endDate;
 
   // Build the BigQuery SQL
-  var requestedFields = request.fields.map(function(f) { return f.name; });
-  var columnList = requestedFields.join(', ');
+  var requestedFieldIds = request.fields.map(function(f) { return f.name; });
+  var columnList = requestedFieldIds.join(', ');
 
   var sql = Utilities.formatString(
     'SELECT %s ' +
@@ -153,11 +153,10 @@ function getData(request) {
   // Run BigQuery query
   var token = getOAuthService().getAccessToken();
   var response = runBigQueryQuery_(projectId, sql, token);
-  var rows = transformBigQueryResults_(response, requestedFields);
+  var rows = transformBigQueryResults_(response, requestedFieldIds);
 
-  var schema = getSchema_().build().filter(function(field) {
-    return requestedFields.indexOf(field.name) !== -1;
-  });
+  var filteredFields = getSchema_().forIds(requestedFieldIds);
+  var schema = filteredFields.build();
 
   var result = { schema: schema, rows: rows };
 
